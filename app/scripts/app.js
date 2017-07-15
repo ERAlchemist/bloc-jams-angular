@@ -1,10 +1,10 @@
-angular.module('blocJams',[]);
+
 (function() {
      function config($stateProvider, $locationProvider) {
           $locationProvider
-         .html5Mode({
-             enabled: true,
-             requireBase: false
+            .html5Mode({
+                enabled: true,
+                requireBase: false
          });
          $stateProvider
          .state('landing', {
@@ -21,7 +21,6 @@ angular.module('blocJams',[]);
          });
      }
  
- angular.module('blocJams', ['ui.router']);
      angular
          .module('blocJams', ['ui.router'])
          .config(config);
