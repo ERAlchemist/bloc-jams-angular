@@ -6,7 +6,7 @@
             var offsetXPercent = offsetX / seekBarWidth;
             offsetXPercent = Math.max(0, offsetXPercent);
             offsetXPercent = Math.min(1, offsetXPercent);
-        return offsetXPercent;
+            return offsetXPercent;
     };
 
         return {
@@ -17,6 +17,8 @@
                 link: function(scope, element, attributes) {
                     scope.value = 0;
                     scope.max = 100;
+                    
+                    var seekBar = $(element);
  
                 var percentString = function () {
                      var value = scope.value;
