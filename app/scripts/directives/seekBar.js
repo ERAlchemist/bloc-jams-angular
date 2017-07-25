@@ -36,6 +36,13 @@
                      var percent = value / max * 100;
                      return percent + "%";
                 };
+                var notifyOnChange = function (newValue) {
+					if (typeof scope.onChange === 'function') {
+						scope.onChange({
+							value: newValue
+						});
+					}
+				};
  
                 scope.fillStyle = function() {
                     return {width: percentString()};
@@ -57,11 +64,7 @@
                             notifyOnChange(scope.value);
                         });
                     });
-                var notifyOnChange = function(newValue) {
-                    if (typeof scope.onChange === 'function') {
-                    scope.onChange({value: newValue});
-                    }
-                };
+                
  
                     $document.bind('mouseup.thumb', function() {
                          $document.unbind('mousemove.thumb');
