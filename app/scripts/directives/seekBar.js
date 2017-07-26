@@ -13,7 +13,7 @@
             templateUrl: '/templates/directives/seek_bar.html',
             replace: true,
             restrict: 'E',
-                 scope: {
+            scope: {
                     onChange: '&'
                 },
                 link: function(scope, element, attributes) {
@@ -36,7 +36,7 @@
                      var percent = value / max * 100;
                      return percent + "%";
                 };
-                var notifyOnChange = function (newValue) {
+               var notifyOnChange = function (newValue) {
 					if (typeof scope.onChange === 'function') {
 						scope.onChange({
 							value: newValue
@@ -61,7 +61,7 @@
                         var percent = calculatePercent(seekBar, event);
                                 scope.$apply(function() {
                             scope.value = percent * scope.max;
-                            notifyOnChange(scope.value);
+                           notifyOnChange(scope.value);
                         });
                     });
                 

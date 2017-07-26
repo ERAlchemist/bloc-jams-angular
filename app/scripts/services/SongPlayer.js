@@ -23,6 +23,7 @@
         * @type {Object}
         */
          var currentBuzzObject = null;
+        SongPlayer.volume = 60;
          
         /**
         * @function setSong
@@ -33,7 +34,7 @@
          var setSong = function(song) {
             if (currentBuzzObject) {
                 currentBuzzObject.stop();
-                currentSong.playing = null;
+                SongPlayer.currentSong.playing = null;
             }
  
              currentBuzzObject = new buzz.sound(song.audioUrl, {
@@ -48,7 +49,7 @@
              });
              
  
-            currentSong = song;
+            SongPlayer.currentSong = song;
         };
         /**
 		 * @function playSong
@@ -69,13 +70,17 @@
     * If the buzz object Song is the same, and the song is paused, then the song will play.
      * @param {Object} song
      */
-     SongPlayer.play = function(song) {
-        song = song || SongPlayer.currentSong;
-        if (currentSong !== song) {
-            setSong(song);
-            playSong(song);
-         }   
-     };
+     SongPlayer.play = function (song) {
+			song = song || SongPlayer.currentSong;
+			if (SongPlayer.currentSong !== song) {
+				setSong(song);
+				playSong(song);
+			} else if (SongPlayer.currentSong === song) {
+				if (currentBuzzObject.isPaused()) {
+					playSong(song);
+				}
+			}
+		};
      /**
      * @function SongPlayer.pause
      * @desc Pauses the currently playing Buzz Object and sets the song's 'playing' attribute to false.
@@ -87,20 +92,18 @@
         song.playing = false;
     };
     
-    SongPlayer.previous = function() {
-     var currentSongIndex = getSongIndex(SongPlayer.currentSong);
-     currentSongIndex--;
-    
-          
-    if (currentSongIndex < 0) {
-         currentBuzzObject.stop();
-         SongPlayer.currentSong.playing = null;
-     } else {
-         var song = currentAlbum.songs[currentSongIndex];
-         setSong(song);
-         playSong(song);
-     }
-    };
+   SongPlayer.previous = function () {
+			var currentSongIndex = getSongIndex(SongPlayer.currentSong);
+			currentSongIndex--;
+
+			if (currentSongIndex < 0) {
+				stopSong(SongPlayer.currentSong);
+			} else {
+				var song = currentAlbum.songs[currentSongIndex];
+				setSong(song);
+				playSong(song);
+			}
+		};
     /**
     * @function setCurrentTime
     * @desc Set current time (in seconds) of currently playing song
